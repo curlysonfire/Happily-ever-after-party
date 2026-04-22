@@ -27,7 +27,7 @@ font-family:'Pacifico', cursive;
 animation:fadeIn 2s ease;
 }
 
-/* video styling */
+/* video */
 
 video{
 width:60%;
@@ -36,15 +36,26 @@ border-radius:12px;
 box-shadow:0 0 40px rgba(0,0,0,.8);
 }
 
-/* RSVP text */
+/* RSVP button */
 
-.rsvp{
+.rsvp-btn{
 margin-top:30px;
-font-size:2.4rem;
-letter-spacing:3px;
-text-align:center;
+padding:14px 32px;
+font-size:1.6rem;
+color:white;
+text-decoration:none;
+font-family:Arial, sans-serif;
+font-weight:bold;
+border:2px solid white;
+border-radius:40px;
+letter-spacing:2px;
+transition:all 0.3s ease;
+}
 
-animation:glow 3s ease-in-out infinite;
+.rsvp-btn:hover{
+background:white;
+color:black;
+transform:scale(1.05);
 }
 
 /* tap text */
@@ -56,7 +67,7 @@ font-size:14px;
 opacity:.7;
 }
 
-/* fade animation */
+/* fade in */
 
 @keyframes fadeIn{
 from{
@@ -69,17 +80,16 @@ transform:translateY(0);
 }
 }
 
-/* glowing text animation */
+/* mobile optimization */
 
-@keyframes glow{
-0%{
-text-shadow:0 0 5px #ffffff;
+@media (max-width:768px){
+video{
+width:90%;
 }
-50%{
-text-shadow:0 0 20px #ffffff, 0 0 30px #ffffff;
-}
-100%{
-text-shadow:0 0 5px #ffffff;
+
+.rsvp-btn{
+font-size:1.3rem;
+padding:12px 24px;
 }
 }
 
@@ -92,12 +102,9 @@ text-shadow:0 0 5px #ffffff;
 <source src="YouCut_20260310_000551200.mp4" type="video/mp4">
 </video>
 
-<div class="rsvp">
-  <a
-href="https://www.theknot.com/moraleshappilyeverafter.org" target="_blank">    
-    RSVP NOW
-  </a>  
-</div>
+<a href="https://www.theknot.com/us/moraleshappilyeverafter-org" target="_blank" class="rsvp-btn">
+RSVP NOW
+</a>
 
 <div class="tap">
 Tap video for sound
