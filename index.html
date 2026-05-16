@@ -39,17 +39,20 @@ body{
   transition:opacity 1.5s ease;
 }
 
-/* BACKGROUND IMAGE */
+/* BRIGHTER BACKGROUND IMAGE */
 
 #introScreen::before{
+
   content:"";
+
   position:absolute;
+
   inset:0;
 
   background:
     linear-gradient(
-      rgba(0,0,0,.45),
-      rgba(0,0,0,.7)
+      rgba(0,0,0,.12),
+      rgba(0,0,0,.28)
     ),
     url("file_00000000071471fd88a37a14ea943433.png");
 
@@ -57,24 +60,34 @@ body{
   background-position:center;
   background-repeat:no-repeat;
 
+  filter:
+    brightness(1.18)
+    contrast(1.05)
+    saturate(1.08);
+
   transform:scale(1.05);
 
   animation:slowZoom 18s ease forwards;
+
 }
 
-/* DARK OVERLAY */
+/* LIGHTER VIGNETTE */
 
 #introScreen::after{
+
   content:"";
+
   position:absolute;
+
   inset:0;
 
   background:
     radial-gradient(
       circle at center,
-      transparent 20%,
-      rgba(0,0,0,.65) 100%
+      transparent 35%,
+      rgba(0,0,0,.22) 100%
     );
+
 }
 
 #introScreen.hide{
@@ -85,6 +98,7 @@ body{
 /* ZOOM EFFECT */
 
 @keyframes slowZoom{
+
   from{
     transform:scale(1.05);
   }
@@ -92,6 +106,7 @@ body{
   to{
     transform:scale(1.15);
   }
+
 }
 
 /* INTRO CONTENT */
@@ -110,13 +125,13 @@ body{
 
   font-size:1rem;
 
-  background:rgba(0,0,0,.35);
+  background:rgba(0,0,0,.25);
 
   backdrop-filter:blur(8px);
 
   color:white;
 
-  border:2px solid rgba(255,255,255,.7);
+  border:2px solid rgba(255,255,255,.8);
 
   border-radius:50px;
 
@@ -127,6 +142,9 @@ body{
   transition:.35s ease;
 
   animation:buttonFloat 3s ease-in-out infinite;
+
+  box-shadow:
+    0 0 20px rgba(255,255,255,.15);
 
 }
 
@@ -436,7 +454,7 @@ video{
 
   <video id="bgvideo" playsinline preload="auto">
 
-    <source src="My movie 5.mp4" type="video/mp4">
+    <source src="intro.mp4" type="video/mp4">
 
   </video>
 
@@ -481,8 +499,6 @@ const mainContent =
 
 enterBtn.addEventListener("click", async () => {
 
-  /* FULLSCREEN */
-
   const elem = document.documentElement;
 
   if(elem.requestFullscreen){
@@ -495,13 +511,9 @@ enterBtn.addEventListener("click", async () => {
 
   }
 
-  /* ENABLE SOUND */
-
   video.muted = false;
 
   video.volume = 1;
-
-  /* PLAY VIDEO */
 
   try{
 
@@ -512,8 +524,6 @@ enterBtn.addEventListener("click", async () => {
     console.log("Video play blocked:", err);
 
   }
-
-  /* TRANSITION */
 
   introScreen.classList.add("hide");
 
@@ -539,7 +549,7 @@ video.addEventListener("click", () => {
 
 });
 
-/* SHOW RSVP BUTTON */
+/* SHOW RSVP */
 
 video.addEventListener("ended", () => {
 
