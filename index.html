@@ -24,6 +24,114 @@ body{
   color:white;
   font-family:Arial, sans-serif;
   padding:12px;
+  position:relative;
+}
+
+/* FADE IN */
+
+body{
+  animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+  }
+  to{
+    opacity:1;
+  }
+}
+
+/* EMBERS */
+
+.embers{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  z-index:1;
+}
+
+.ember{
+  position:absolute;
+  bottom:-20px;
+  border-radius:50%;
+  background:rgba(255,140,0,.85);
+
+  box-shadow:
+    0 0 8px rgba(255,120,0,.9),
+    0 0 20px rgba(255,60,0,.7);
+
+  animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+
+  0%{
+    transform:
+      translateY(0)
+      translateX(0)
+      scale(1);
+
+    opacity:0;
+  }
+
+  10%{
+    opacity:1;
+  }
+
+  100%{
+    transform:
+      translateY(-120vh)
+      translateX(80px)
+      scale(0);
+
+    opacity:0;
+  }
+
+}
+
+/* FOG */
+
+.fog{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:200%;
+  height:220px;
+
+  background:
+    radial-gradient(circle at center,
+    rgba(255,255,255,.08),
+    transparent 70%);
+
+  filter:blur(45px);
+
+  animation:fogMove 18s linear infinite;
+
+  pointer-events:none;
+  z-index:1;
+}
+
+@keyframes fogMove{
+  from{
+    transform:translateX(0);
+  }
+
+  to{
+    transform:translateX(-30%);
+  }
+}
+
+/* CONTENT */
+
+.content{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 /* VIDEO */
@@ -32,27 +140,40 @@ video{
   width:100%;
   max-width:1400px;
   max-height:78vh;
+
   object-fit:contain;
-  border-radius:12px;
-  box-shadow:0 0 40px rgba(0,0,0,.8);
+
+  border-radius:14px;
+
+  box-shadow:
+    0 0 30px rgba(255,255,255,.08),
+    0 0 80px rgba(0,0,0,.9);
+
   background:black;
 }
 
 /* RSVP BUTTON */
 
 .rsvp-btn{
+
   margin-top:22px;
+
   padding:14px 34px;
+
   font-size:1.4rem;
   font-weight:bold;
+
   letter-spacing:3px;
+
   color:white;
   text-decoration:none;
+
   border:3px solid white;
   border-radius:50px;
 
   opacity:0;
   transform:translateY(20px);
+
   pointer-events:none;
 
   transition:
@@ -60,26 +181,61 @@ video{
     transform 1.2s ease,
     background .3s ease,
     color .3s ease;
+
 }
 
+/* SHOW BUTTON */
+
 .rsvp-btn.show{
+
   opacity:1;
   transform:translateY(0);
+
   pointer-events:auto;
+
+  animation:pulse 2.5s infinite;
+
+}
+
+@keyframes pulse{
+
+  0%{
+    box-shadow:0 0 0 rgba(255,255,255,0);
+  }
+
+  50%{
+    box-shadow:
+      0 0 18px rgba(255,255,255,.45),
+      0 0 40px rgba(255,255,255,.18);
+  }
+
+  100%{
+    box-shadow:0 0 0 rgba(255,255,255,0);
+  }
+
 }
 
 .rsvp-btn:hover{
+
   background:white;
   color:black;
+
+  transform:scale(1.06);
+
 }
 
 /* TAP TEXT */
 
 .tap{
+
   margin-top:12px;
+
   font-size:14px;
+
   opacity:.75;
+
   transition:opacity 1s ease;
+
 }
 
 .tap.hide{
@@ -95,8 +251,8 @@ video{
   }
 
   .rsvp-btn{
-    font-size:1.15rem;
-    padding:12px 28px;
+    font-size:1.1rem;
+    padding:12px 26px;
   }
 
   .tap{
@@ -110,21 +266,32 @@ video{
 
 <body>
 
-<video id="bgvideo" autoplay muted playsinline>
-  <source src="intro.mp4" type="video/mp4">
-</video>
+<!-- EMBERS -->
+<div class="embers" id="embers"></div>
 
-<a
-  href="https://www.theknot.com/us/moraleshappilyeverafter"
-  target="_blank"
-  class="rsvp-btn"
-  id="rsvpBtn"
->
-  RSVP NOW
-</a>
+<!-- FOG -->
+<div class="fog"></div>
 
-<div class="tap" id="tapText">
-  Tap video for sound
+<!-- CONTENT -->
+<div class="content">
+
+  <video id="bgvideo" autoplay muted playsinline>
+    <source src="intro.mp4" type="video/mp4">
+  </video>
+
+  <a
+    href="https://www.theknot.com/us/moraleshappilyeverafter"
+    target="_blank"
+    class="rsvp-btn"
+    id="rsvpBtn"
+  >
+    RSVP NOW
+  </a>
+
+  <div class="tap" id="tapText">
+    Tap video for sound
+  </div>
+
 </div>
 
 <script>
@@ -133,26 +300,69 @@ const video = document.getElementById("bgvideo");
 const rsvpBtn = document.getElementById("rsvpBtn");
 const tapText = document.getElementById("tapText");
 
-/* tap for sound */
+/* TAP FOR SOUND */
 
 video.addEventListener("click", () => {
+
   video.muted = false;
+
   video.play();
+
+  tapText.classList.add("hide");
+
 });
 
-/* show RSVP button after video ends */
+/* SHOW RSVP BUTTON */
 
 video.addEventListener("ended", () => {
+
   rsvpBtn.classList.add("show");
+
   tapText.classList.add("hide");
+
 });
 
-/* fallback if video fails */
+/* FALLBACK */
 
 video.addEventListener("error", () => {
+
   console.log("Video failed to load");
+
   rsvpBtn.classList.add("show");
+
 });
+
+/* EMBERS */
+
+const embersContainer = document.getElementById("embers");
+
+for(let i = 0; i < 45; i++){
+
+  const ember = document.createElement("div");
+
+  ember.classList.add("ember");
+
+  ember.style.left =
+    Math.random() * 100 + "vw";
+
+  const size =
+    Math.random() * 5 + 3;
+
+  ember.style.width = size + "px";
+  ember.style.height = size + "px";
+
+  ember.style.animationDuration =
+    (Math.random() * 10 + 7) + "s";
+
+  ember.style.animationDelay =
+    Math.random() * 10 + "s";
+
+  ember.style.opacity =
+    Math.random();
+
+  embersContainer.appendChild(ember);
+
+}
 
 </script>
 
