@@ -454,7 +454,7 @@ video{
 
   <video id="bgvideo" playsinline preload="auto">
 
-    <source src="My movie 5.mp4" type="video/mp4">
+    <source src="intro.mp4" type="video/mp4">
 
   </video>
 
@@ -464,7 +464,7 @@ video{
     class="rsvp-btn"
     id="rsvpBtn"
   >
-    RSVP NOW
+    RSVP
   </a>
 
   <div class="tap" id="tapText">
@@ -549,13 +549,19 @@ video.addEventListener("click", () => {
 
 });
 
-/* SHOW RSVP */
+/* SHOW RSVP AT 10 SECONDS */
 
-video.addEventListener("ended", () => {
+let rsvpShown = false;
 
-  rsvpBtn.classList.add("show");
+video.addEventListener("timeupdate", () => {
 
-  tapText.classList.add("hide");
+  if(video.currentTime >= 10 && !rsvpShown){
+
+    rsvpBtn.classList.add("show");
+
+    rsvpShown = true;
+
+  }
 
 });
 
