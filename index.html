@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RSVP</title>
+<title>Vows Through The Void</title>
 
 <style>
+
+/* RESET */
 
 *{
   margin:0;
@@ -13,23 +15,16 @@
   box-sizing:border-box;
 }
 
+/* BODY */
+
 body{
   background:black;
   min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
   overflow:hidden;
   color:white;
   font-family:Arial, sans-serif;
-  padding:12px;
   position:relative;
-}
 
-/* FADE IN */
-
-body{
   animation:fadeIn 2s ease;
 }
 
@@ -37,25 +32,139 @@ body{
   from{
     opacity:0;
   }
+
   to{
     opacity:1;
   }
 }
 
+/* INTRO SCREEN */
+
+#introScreen{
+
+  position:fixed;
+  inset:0;
+
+  background:black;
+
+  z-index:999;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  transition:opacity 1.5s ease;
+
+}
+
+#introScreen.hide{
+
+  opacity:0;
+  pointer-events:none;
+
+}
+
+.intro-content{
+
+  text-align:center;
+
+}
+
+.title{
+
+  font-size:clamp(2.2rem,6vw,5rem);
+
+  letter-spacing:6px;
+
+  text-transform:uppercase;
+
+  margin-bottom:30px;
+
+  animation:fadeGlow 3s ease infinite alternate;
+
+}
+
+@keyframes fadeGlow{
+
+  from{
+
+    opacity:.7;
+
+    text-shadow:
+      0 0 10px rgba(255,255,255,.2);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    text-shadow:
+      0 0 20px rgba(255,255,255,.5),
+      0 0 40px rgba(255,255,255,.25);
+
+  }
+
+}
+
+/* ENTER BUTTON */
+
+#enterBtn{
+
+  padding:16px 42px;
+
+  font-size:1.2rem;
+
+  background:transparent;
+
+  color:white;
+
+  border:2px solid white;
+
+  border-radius:50px;
+
+  cursor:pointer;
+
+  letter-spacing:4px;
+
+  transition:.3s ease;
+
+}
+
+#enterBtn:hover{
+
+  background:white;
+
+  color:black;
+
+  transform:scale(1.05);
+
+}
+
 /* EMBERS */
 
 .embers{
+
   position:fixed;
+
   inset:0;
+
   overflow:hidden;
+
   pointer-events:none;
+
   z-index:1;
+
 }
 
 .ember{
+
   position:absolute;
+
   bottom:-20px;
+
   border-radius:50%;
+
   background:rgba(255,140,0,.85);
 
   box-shadow:
@@ -63,17 +172,20 @@ body{
     0 0 20px rgba(255,60,0,.7);
 
   animation:floatUp linear infinite;
+
 }
 
 @keyframes floatUp{
 
   0%{
+
     transform:
       translateY(0)
       translateX(0)
       scale(1);
 
     opacity:0;
+
   }
 
   10%{
@@ -81,12 +193,14 @@ body{
   }
 
   100%{
+
     transform:
       translateY(-120vh)
       translateX(80px)
       scale(0);
 
     opacity:0;
+
   }
 
 }
@@ -94,9 +208,12 @@ body{
 /* FOG */
 
 .fog{
+
   position:fixed;
+
   bottom:0;
   left:0;
+
   width:200%;
   height:220px;
 
@@ -110,10 +227,13 @@ body{
   animation:fogMove 18s linear infinite;
 
   pointer-events:none;
+
   z-index:1;
+
 }
 
 @keyframes fogMove{
+
   from{
     transform:translateX(0);
   }
@@ -121,35 +241,56 @@ body{
   to{
     transform:translateX(-30%);
   }
+
 }
 
-/* CONTENT */
+/* MAIN CONTENT */
 
-.content{
+#mainContent{
+
   position:relative;
+
   z-index:2;
+
+  min-height:100vh;
 
   display:flex;
   flex-direction:column;
+  justify-content:center;
   align-items:center;
+
+  padding:12px;
+
+  opacity:0;
+
+  transition:opacity 2s ease;
+
+}
+
+#mainContent.show{
+  opacity:1;
 }
 
 /* VIDEO */
 
 video{
+
   width:100%;
+
   max-width:1400px;
+
   max-height:78vh;
 
   object-fit:contain;
 
   border-radius:14px;
 
+  background:black;
+
   box-shadow:
     0 0 30px rgba(255,255,255,.08),
     0 0 80px rgba(0,0,0,.9);
 
-  background:black;
 }
 
 /* RSVP BUTTON */
@@ -161,17 +302,21 @@ video{
   padding:14px 34px;
 
   font-size:1.4rem;
+
   font-weight:bold;
 
   letter-spacing:3px;
 
   color:white;
+
   text-decoration:none;
 
   border:3px solid white;
+
   border-radius:50px;
 
   opacity:0;
+
   transform:translateY(20px);
 
   pointer-events:none;
@@ -184,11 +329,10 @@ video{
 
 }
 
-/* SHOW BUTTON */
-
 .rsvp-btn.show{
 
   opacity:1;
+
   transform:translateY(0);
 
   pointer-events:auto;
@@ -204,9 +348,11 @@ video{
   }
 
   50%{
+
     box-shadow:
       0 0 18px rgba(255,255,255,.45),
       0 0 40px rgba(255,255,255,.18);
+
   }
 
   100%{
@@ -218,6 +364,7 @@ video{
 .rsvp-btn:hover{
 
   background:white;
+
   color:black;
 
   transform:scale(1.06);
@@ -246,17 +393,34 @@ video{
 
 @media (max-width:768px){
 
+  .title{
+
+    font-size:2.2rem;
+
+    letter-spacing:4px;
+
+    padding:0 20px;
+
+  }
+
   video{
+
     max-height:72vh;
+
   }
 
   .rsvp-btn{
+
     font-size:1.1rem;
+
     padding:12px 26px;
+
   }
 
   .tap{
+
     font-size:13px;
+
   }
 
 }
@@ -266,17 +430,40 @@ video{
 
 <body>
 
+<!-- INTRO SCREEN -->
+
+<div id="introScreen">
+
+  <div class="intro-content">
+
+    <h1 class="title">
+      Vows Through The Void
+    </h1>
+
+    <button id="enterBtn">
+      ENTER
+    </button>
+
+  </div>
+
+</div>
+
 <!-- EMBERS -->
+
 <div class="embers" id="embers"></div>
 
 <!-- FOG -->
+
 <div class="fog"></div>
 
-<!-- CONTENT -->
-<div class="content">
+<!-- MAIN CONTENT -->
 
-  <video id="bgvideo" autoplay muted playsinline>
+<div id="mainContent">
+
+  <video id="bgvideo" playsinline>
+
     <source src="intro.mp4" type="video/mp4">
+
   </video>
 
   <a
@@ -296,11 +483,63 @@ video{
 
 <script>
 
-const video = document.getElementById("bgvideo");
-const rsvpBtn = document.getElementById("rsvpBtn");
-const tapText = document.getElementById("tapText");
+/* ELEMENTS */
 
-/* TAP FOR SOUND */
+const video =
+  document.getElementById("bgvideo");
+
+const rsvpBtn =
+  document.getElementById("rsvpBtn");
+
+const tapText =
+  document.getElementById("tapText");
+
+const enterBtn =
+  document.getElementById("enterBtn");
+
+const introScreen =
+  document.getElementById("introScreen");
+
+const mainContent =
+  document.getElementById("mainContent");
+
+/* ENTER EXPERIENCE */
+
+enterBtn.addEventListener("click", async () => {
+
+  /* FULLSCREEN */
+
+  const elem = document.documentElement;
+
+  if(elem.requestFullscreen){
+
+    elem.requestFullscreen();
+
+  }else if(elem.webkitRequestFullscreen){
+
+    elem.webkitRequestFullscreen();
+
+  }
+
+  /* START VIDEO */
+
+  video.muted = false;
+
+  video.play();
+
+  /* TRANSITION */
+
+  introScreen.classList.add("hide");
+
+  setTimeout(() => {
+
+    mainContent.classList.add("show");
+
+  }, 800);
+
+});
+
+/* TAP VIDEO FOR SOUND */
 
 video.addEventListener("click", () => {
 
@@ -312,7 +551,7 @@ video.addEventListener("click", () => {
 
 });
 
-/* SHOW RSVP BUTTON */
+/* SHOW RSVP */
 
 video.addEventListener("ended", () => {
 
@@ -334,11 +573,13 @@ video.addEventListener("error", () => {
 
 /* EMBERS */
 
-const embersContainer = document.getElementById("embers");
+const embersContainer =
+  document.getElementById("embers");
 
 for(let i = 0; i < 45; i++){
 
-  const ember = document.createElement("div");
+  const ember =
+    document.createElement("div");
 
   ember.classList.add("ember");
 
@@ -348,8 +589,11 @@ for(let i = 0; i < 45; i++){
   const size =
     Math.random() * 5 + 3;
 
-  ember.style.width = size + "px";
-  ember.style.height = size + "px";
+  ember.style.width =
+    size + "px";
+
+  ember.style.height =
+    size + "px";
 
   ember.style.animationDuration =
     (Math.random() * 10 + 7) + "s";
