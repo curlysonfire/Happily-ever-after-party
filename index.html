@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>RSVP</title>
 
 <style>
+
 *{
   margin:0;
   padding:0;
@@ -14,42 +15,51 @@
 
 body{
   background:black;
-  color:white;
   min-height:100vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  padding:12px;
   overflow:hidden;
+  color:white;
   font-family:Arial, sans-serif;
+  padding:12px;
 }
+
+/* VIDEO */
 
 video{
   width:100%;
   max-width:1400px;
-  max-height:76vh;
-  height:auto;
+  max-height:78vh;
   object-fit:contain;
   border-radius:12px;
   box-shadow:0 0 40px rgba(0,0,0,.8);
+  background:black;
 }
+
+/* RSVP BUTTON */
 
 .rsvp-btn{
   margin-top:22px;
-  padding:14px 36px;
-  font-size:1.5rem;
+  padding:14px 34px;
+  font-size:1.4rem;
+  font-weight:bold;
+  letter-spacing:3px;
   color:white;
   text-decoration:none;
-  font-family:Arial, sans-serif;
-  font-weight:bold;
   border:3px solid white;
-  border-radius:40px;
-  letter-spacing:3px;
+  border-radius:50px;
+
   opacity:0;
   transform:translateY(20px);
   pointer-events:none;
-  transition:opacity 1.2s ease, transform 1.2s ease, background .3s ease, color .3s ease;
+
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s ease,
+    background .3s ease,
+    color .3s ease;
 }
 
 .rsvp-btn.show{
@@ -63,10 +73,12 @@ video{
   color:black;
 }
 
+/* TAP TEXT */
+
 .tap{
   margin-top:12px;
   font-size:14px;
-  opacity:.7;
+  opacity:.75;
   transition:opacity 1s ease;
 }
 
@@ -74,50 +86,74 @@ video{
   opacity:0;
 }
 
+/* MOBILE */
+
 @media (max-width:768px){
+
   video{
     max-height:72vh;
   }
 
   .rsvp-btn{
-    font-size:1.2rem;
+    font-size:1.15rem;
     padding:12px 28px;
-    margin-top:18px;
   }
 
   .tap{
     font-size:13px;
   }
+
 }
+
 </style>
 </head>
 
 <body>
 
 <video id="bgvideo" autoplay muted playsinline>
-  <source src="My movie 5_1.mp4" type="video/mp4">
+  <source src="./my-movie-5-1.mp4" type="video/mp4">
 </video>
 
-<a href="https://www.theknot.com/us/moraleshappilyeverafter" target="_blank" class="rsvp-btn" id="rsvpBtn">
+<a
+  href="https://www.theknot.com/us/moraleshappilyeverafter"
+  target="_blank"
+  class="rsvp-btn"
+  id="rsvpBtn"
+>
   RSVP NOW
 </a>
 
-<div class="tap" id="tapText">Tap video for sound</div>
+<div class="tap" id="tapText">
+  Tap video for sound
+</div>
 
 <script>
+
 const video = document.getElementById("bgvideo");
 const rsvpBtn = document.getElementById("rsvpBtn");
 const tapText = document.getElementById("tapText");
+
+/* tap video for sound */
 
 video.addEventListener("click", () => {
   video.muted = false;
   video.play();
 });
 
+/* show RSVP button after video ends */
+
 video.addEventListener("ended", () => {
   rsvpBtn.classList.add("show");
   tapText.classList.add("hide");
 });
+
+/* fallback in case video fails */
+
+video.addEventListener("error", () => {
+  console.log("Video failed to load");
+  rsvpBtn.classList.add("show");
+});
+
 </script>
 
 </body>
