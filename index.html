@@ -5,10 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RSVP</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
 <style>
-
 *{
   margin:0;
   padding:0;
@@ -23,51 +20,37 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  font-family:'Pacifico', cursive;
-  animation:fadeIn 2s ease;
-  padding:20px;
+  padding:12px;
   overflow:hidden;
+  font-family:Arial, sans-serif;
 }
-
-/* video */
 
 video{
-  width:98%;
+  width:100%;
   max-width:1400px;
-  max-height:78vh;
+  max-height:76vh;
   height:auto;
+  object-fit:contain;
   border-radius:12px;
   box-shadow:0 0 40px rgba(0,0,0,.8);
-  object-fit:contain;
 }
 
-/* RSVP button */
-
 .rsvp-btn{
-  margin-top:24px;
-  padding:14px 32px;
-  font-size:1.6rem;
+  margin-top:22px;
+  padding:14px 36px;
+  font-size:1.5rem;
   color:white;
   text-decoration:none;
-  font-family:Germanic, sans-serif;
+  font-family:Arial, sans-serif;
   font-weight:bold;
-  border:2px solid white;
+  border:3px solid white;
   border-radius:40px;
-  letter-spacing:2px;
-
-  /* hidden initially */
+  letter-spacing:3px;
   opacity:0;
   transform:translateY(20px);
   pointer-events:none;
-
-  transition:
-    opacity 1.2s ease,
-    transform 1.2s ease,
-    background .3s ease,
-    color .3s ease;
+  transition:opacity 1.2s ease, transform 1.2s ease, background .3s ease, color .3s ease;
 }
-
-/* visible state */
 
 .rsvp-btn.show{
   opacity:1;
@@ -78,14 +61,10 @@ video{
 .rsvp-btn:hover{
   background:white;
   color:black;
-  transform:scale(1.05);
 }
 
-/* tap text */
-
 .tap{
-  margin-top:10px;
-  font-family:Germanic, sans-serif;
+  margin-top:12px;
   font-size:14px;
   opacity:.7;
   transition:opacity 1s ease;
@@ -95,46 +74,21 @@ video{
   opacity:0;
 }
 
-/* page fade */
-
-@keyframes fadeIn{
-  from{
-    opacity:0;
-    transform:translateY(20px);
-  }
-
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* mobile */
-
 @media (max-width:768px){
-
-  body{
-    padding:12px;
-  }
-
   video{
-    width:100%;
-    max-height:74vh;
-    border-radius:10px;
+    max-height:72vh;
   }
 
   .rsvp-btn{
     font-size:1.2rem;
-    padding:12px 24px;
-    margin-top:20px;
+    padding:12px 28px;
+    margin-top:18px;
   }
 
   .tap{
-    font-size:12px;
+    font-size:13px;
   }
-
 }
-
 </style>
 </head>
 
@@ -144,39 +98,26 @@ video{
   <source src="my-movie-5-1.mp4" type="video/mp4">
 </video>
 
-<a
-  href="https://www.theknot.com/us/moraleshappilyeverafter"
-  target="_blank"
-  class="rsvp-btn"
-  id="rsvpBtn"
->
+<a href="https://www.theknot.com/us/moraleshappilyeverafter" target="_blank" class="rsvp-btn" id="rsvpBtn">
   RSVP NOW
 </a>
 
-<div class="tap" id="tapText">
-  Tap video for sound
-</div>
+<div class="tap" id="tapText">Tap video for sound</div>
 
 <script>
-
 const video = document.getElementById("bgvideo");
 const rsvpBtn = document.getElementById("rsvpBtn");
 const tapText = document.getElementById("tapText");
-
-/* tap video for sound */
 
 video.addEventListener("click", () => {
   video.muted = false;
   video.play();
 });
 
-/* show RSVP button when video ends */
-
 video.addEventListener("ended", () => {
   rsvpBtn.classList.add("show");
   tapText.classList.add("hide");
 });
-
 </script>
 
 </body>
